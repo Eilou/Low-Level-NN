@@ -39,20 +39,25 @@ d\theta &= \frac{\partial L}{\partial \theta} \\
 \end{aligned}$$
 
 The maths I am going off for this program:
-*Note that if you surround each section with `\begin{aligned}` and `\end{aligned}` then do `&=` the different lines will sync up using the equals signs.*
 
 $$
-d\hat{y} = \frac{\partial L}{\partial \hat{y}}
+\begin{aligned}
+d\hat{y} &= \frac{\partial L}{\partial \hat{y}}
+\end{aligned}
 $$
+
 ---
 $$
-dnet2 = \frac{\partial L}{\partial \hat{y}} \cdot \frac{\partial \hat{y}}{\partial net2} \\
-= d\hat{y} \cdot \frac{\partial \hat{y}}{\partial net2} \\ \\
-\hat{y} = \sigma (net2) \\
-\frac{\partial \hat{y}}{\partial net2} = \sigma (net2) (1 - \sigma (net2)) \\
-\frac{\partial \hat{y}}{\partial net2} = \hat{y} (1 - \hat{y}) \\ \\
-dnet2 = d \hat{y} \cdot \hat{y}(1 -\hat{y})
+\begin{aligned}
+dnet2 &= \frac{\partial L}{\partial \hat{y}} \cdot \frac{\partial \hat{y}}{\partial net2} \\
+&= d\hat{y} \cdot \frac{\partial \hat{y}}{\partial net2} \\ \\
+\hat{y} &= \sigma (net2) \\
+\frac{\partial \hat{y}}{\partial net2} &= \sigma (net2) (1 - \sigma (net2)) \\
+\frac{\partial \hat{y}}{\partial net2} &= \hat{y} (1 - \hat{y}) \\ \\
+dnet2 &= d \hat{y} \cdot \hat{y}(1 -\hat{y})
+\end{aligned}
 $$
+
 ---
 $$
 \begin{aligned}
@@ -63,6 +68,7 @@ net2 &= W_2^T \cdot A_1 + B_2 \\
 dW_2 &= A_1 \cdot dnet2^T
 \end{aligned}
 $$
+
 ---
 $$
 \begin{aligned}
