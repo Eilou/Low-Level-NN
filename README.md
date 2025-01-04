@@ -80,6 +80,7 @@ dB_2 &= dnet2 \cdot 1 \\
 &= dnet2
 \end{aligned}
 $$
+
 ---
 $$
 \begin{aligned}
@@ -97,6 +98,7 @@ $$
 dA_1 &= W_2 \cdot dnet2
 \end{aligned}
 $$
+
 ---
 $$
 \begin{aligned}
