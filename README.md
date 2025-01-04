@@ -81,8 +81,32 @@ $$
 $$
 \begin{aligned}
 dA_1 &= \frac{\partial L}{\partial \hat{y}} \cdot \frac{\partial \hat{y}}{\partial net2} \cdot \frac{\partial net2}{\partial A_1} \\
+&= dnet2 \cdot \frac{\partial net2}{\partial A_1} \\ \\
+net2 &= W_2^T \cdot A_1 + B_2 \\
+\frac{\partial net2}{\partial A_1} &= W_2 \\ \\
+
+dA_1 &= dnet2 \cdot W_2
 \end{aligned}
 $$
+But we can't do this because the dimensions don't match up. So instead we move about (and occasionally transpose) the matrices so they do actually match up.
+$$
+\begin{aligned}
+dA_1 &= W_2 \cdot dnet2
+\end{aligned}
+$$
+---
+$$
+\begin{aligned}
+dnet1 &= \frac{\partial L}{\partial \hat{y}} \cdot \frac{\partial \hat{y}}{\partial net2} \cdot \frac{\partial net2}{\partial A_1} \cdot \frac{\partial A_1}{\partial net1} \\
+&= dA_1 \cdot \frac{\partial A_1}{\partial net1} \\ \\ 
+A_1 &= \sigma (net1) \\
+\frac{\partial A_1}{\partial net1} &= \sigma(net1)(1-\sigma (net1)) \\
+&= A_1(1- A_1) \\ \\
+dnet1 &= dA_1 * A_1 *(1-A_1)
+\end{aligned}
+$$
+Because during the forward pass we do element-wise multiplication during the linear transformation and the activation function, we must then do element-wise multiplication during backpropagation.
+
 ---
 $$
 \begin{aligned}
