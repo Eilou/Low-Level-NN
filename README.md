@@ -93,6 +93,7 @@ dA_1 &= dnet2 \cdot W_2
 $$
 
 But we can't do this because the dimensions don't match up. So instead we move about (and occasionally transpose) the matrices so they do actually match up.
+
 $$
 \begin{aligned}
 dA_1 &= W_2 \cdot dnet2
