@@ -1,3 +1,3 @@
-void testing() {
-    printf("OH YEAH BABY I CONFIGURED THE COMPILER\n");
+void staticNN() {
+    printf("Static Memory Allocation  Neural Network\n");
 }

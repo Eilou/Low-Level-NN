@@ -1,6 +1,6 @@
 #ifndef STATICNN_H
 #define STATICNN_H
 
-void testing();
+void staticNN();
 
 #endif // STATICNN_H

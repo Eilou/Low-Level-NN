@@ -2,6 +2,7 @@
 #include <stdbool.h>
 
 #include "staticNN.h"
+#include "dynamicNN.h"
 
 int main() {
    
@@ -10,13 +11,11 @@ int main() {
    bool staticNotDynamic = true;
 
    if (staticNotDynamic) {
-      testing();
+      staticNN();
    }
-
-   // int x[2];
-
-   // printf("Enter the values for input X");
-   // x[0] = scanf();
+   else {
+      dynamicNN();
+   }
 
    return 0;
 }
