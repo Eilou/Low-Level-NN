@@ -184,3 +184,6 @@ $$
 \gamma' = \frac{\gamma}{\text{number of iterations}}
 \end{aligned}
 $$
+
+
+### [Back To Top](#low-level-neural-network-attempt)
