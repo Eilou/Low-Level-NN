@@ -3,13 +3,23 @@
 
 Basically this is my attempt to both learn C and my AI module by trying to create a very basic neural network in low level languages.
 
-## Initial structure:
+## Structure:
 - 2 node input
-- 2 node hidden
+- 1 hidden layer
+    - 2 nodes
 - 1 node output
 - Full connected
 
+![diagram structure](/diagram.png)
+
+## Maths behind it
+1. [Forward Pass](#forward-pass)
+2. [Loss Function](#loss-function)
+3. [Back Propagation](#back-propagation)
+4. [Parameter Update](#parameter-update)
+
 ### Forward Pass
+
 $$
 \begin{aligned}
 net1 &= W_1^T \cdot X + B_1 \\
@@ -47,6 +57,7 @@ d\hat{y} &= \frac{\partial L}{\partial \hat{y}}
 $$
 
 ---
+
 $$
 \begin{aligned}
 dnet2 &= \frac{\partial L}{\partial \hat{y}} \cdot \frac{\partial \hat{y}}{\partial net2} \\
@@ -59,6 +70,7 @@ dnet2 &= d \hat{y} \cdot \hat{y}(1 -\hat{y})
 $$
 
 ---
+
 $$
 \begin{aligned}
 dW_2 &= \frac{\partial L}{\partial \hat{y}} \cdot \frac{\partial \hat{y}}{\partial net2} \cdot \frac{\partial net2}{\partial W_2} \\
@@ -70,6 +82,7 @@ dW_2 &= A_1 \cdot dnet2^T
 $$
 
 ---
+
 $$
 \begin{aligned}
 dB_2 &= \frac{\partial L}{\partial \hat{y}} \cdot \frac{\partial \hat{y}}{\partial net2} \cdot \frac{\partial net2}{\partial B_2} \\
@@ -82,6 +95,7 @@ dB_2 &= dnet2 \cdot 1 \\
 $$
 
 ---
+
 $$
 \begin{aligned}
 dA_1 &= \frac{\partial L}{\partial \hat{y}} \cdot \frac{\partial \hat{y}}{\partial net2} \cdot \frac{\partial net2}{\partial A_1} \\
@@ -94,6 +108,8 @@ $$
 
 But we can't do this because the dimensions don't match up. So instead we move about (and occasionally transpose) the matrices so they do actually match up.
 
+Also worth noting that when we do the partial derivative of a transposed matrix, we drop the transposition in the coefficient (I think) because it now is unaffected by, in this case, the the matrix $A_1$
+
 $$
 \begin{aligned}
 dA_1 &= W_2 \cdot dnet2
@@ -101,6 +117,7 @@ dA_1 &= W_2 \cdot dnet2
 $$
 
 ---
+
 $$
 \begin{aligned}
 dnet1 &= \frac{\partial L}{\partial \hat{y}} \cdot \frac{\partial \hat{y}}{\partial net2} \cdot \frac{\partial net2}{\partial A_1} \cdot \frac{\partial A_1}{\partial net1} \\
@@ -112,8 +129,58 @@ dnet1 &= dA_1 * A_1 *(1-A_1)
 \end{aligned}
 $$
 
-Because during the forward pass we do element-wise multiplication during the linear transformation and the activation function, we must then do element-wise multiplication during backpropagation.
+Because during the forward pass we do element-wise multiplication ($*$) during the linear transformation and the activation function, we must then do element-wise multiplication during backpropagation.
 
 ---
+
 $$
 \begin{aligned}
+dW_1 &= \frac{\partial L}{\partial \hat{y}} \cdot \frac{\partial \hat{y}}{\partial net2} \cdot \frac{\partial net2}{\partial A_1} \cdot \frac{\partial A_1}{\partial net1} \cdot \frac{\partial net1}{\partial W_1} \\
+&= dnet1 \cdot \frac{\partial net1}{\partial W_1} \\ \\ 
+net1 &= W_1^T \cdot X + B_1\\
+\frac{\partial net2}{\partial W_1} &= X \\ \\
+dW_1 &= dnet1 \cdot X
+\end{aligned}
+$$
+
+But again we need to transpose so the dimensions match
+
+$$
+\begin{aligned}
+dW_1 &= X^T \cdot dnet1
+\end{aligned}
+$$
+
+---
+
+$$
+\begin{aligned}
+dB_1 &= \frac{\partial L}{\partial \hat{y}} \cdot \frac{\partial \hat{y}}{\partial net2} \cdot \frac{\partial net2}{\partial A_1} \cdot \frac{\partial A_1}{\partial net1} \cdot \frac{\partial net1}{\partial B_1} \\
+&= dnet1 \cdot \frac{\partial net1}{\partial B_1} \\ \\ 
+net1 &= W_1^T \cdot X + B_1\\
+\frac{\partial net2}{\partial B_1} &= 1 \\ \\
+dB_1 &= dnet1 \cdot 1 \\
+&= dnet1
+\end{aligned}
+$$
+
+---
+### Parameter Update
+
+$$
+\begin{aligned}
+\gamma &= \text{pre-set learning rate} \\ \\
+W_1' &= W_1 - \gamma * dW_1 \\
+B_1' &= B_1 - \gamma * dB_1 \\
+W_2' &= W_2 - \gamma * dW_2 \\
+B_2' &= B_2 - \gamma * dB_2 \\
+\end{aligned}
+$$
+
+Could potentially adjust learning rate over time with reference to the number of generations ran through.
+
+$$
+\begin{aligned}
+\gamma' = \frac{\gamma}{\text{number of iterations}}
+\end{aligned}
+$$
