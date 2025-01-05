@@ -20,6 +20,13 @@ Basically this is my attempt to both learn C and my AI module by trying to creat
 
 ### Forward Pass
 
+Note we must start with preset values for the following parameters:
+$$
+W_1, B_1, W_2, B_2
+$$
+
+Now we can do pass
+
 $$
 \begin{aligned}
 net1 &= W_1^T \cdot X + B_1 \\
