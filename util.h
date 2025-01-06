@@ -1,6 +1,8 @@
 #ifndef UTIL_H
 #define UTIL_H
 
-void printArray(int rows, int cols, double *arr);
+#include "matrix.h"
+
+void printArray(Matrix *m);
 
 #endif
